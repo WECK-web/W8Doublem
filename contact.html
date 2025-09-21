@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact Us | Double M Advocates</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <script src="js/script.js" defer></script>
+  <style>
+    /* ===== Base Styling ===== */
+    body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f7f8fa;
+      color: #222;
+      line-height: 1.6;
+    }
+
+    header {
+      background: #222;
+      padding: 1rem 2rem;
+    }
+
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .navbar .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #fff;
+    }
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    .nav-links li a {
+      text-decoration: none;
+      color: #ccc;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+
+    .nav-links li a:hover,
+    .nav-links li a.active {
+      color: #fff;
+    }
+
+    /* ===== Page Header ===== */
+    .page-header {
+      text-align: center;
+      padding: 3.5rem 1rem;
+      background: linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)),
+                  url('https://images.unsplash.com/photo-1528747045269-390fe33c19d4') center/cover no-repeat;
+      color: #fff;
+    }
+
+    .page-header h1 {
+      font-size: 2.8rem;
+      margin-bottom: 0.8rem;
+      font-weight: 600;
+    }
+
+    .page-header p {
+      font-size: 1.15rem;
+      max-width: 650px;
+      margin: 0 auto;
+      opacity: 0.9;
+    }
+
+    /* ===== Content Section (with background) ===== */
+    .content-wrapper {
+      background: linear-gradient(135deg, #eef3f9 0%, #ffffff 100%);
+      padding: 4rem 0;
+      position: relative;
+    }
+
+    .content-wrapper::before,
+    .content-wrapper::after {
+      content: '';
+      position: absolute;
+      border-radius: 50%;
+      opacity: 0.08;
+      z-index: 0;
+    }
+
+    .content-wrapper::before {
+      width: 250px;
+      height: 250px;
+      background: #004aad;
+      top: -80px;
+      left: -80px;
+    }
+
+    .content-wrapper::after {
+      width: 300px;
+      height: 300px;
+      background: #005fdd;
+      bottom: -100px;
+      right: -100px;
+    }
+
+    .content {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 2.5rem;
+      padding: 0 5%;
+      max-width: 1200px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .contact-form, .contact-info {
+      flex: 1 1 45%;
+      background: #fff;
+      padding: 2rem 2.5rem;
+      border-radius: 12px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+      opacity: 0;                /* hidden initially */
+      transform: translateY(40px); /* slide up */
+      transition: all 0.8s ease;
+    }
+
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .contact-form h2,
+    .contact-info h2 {
+      font-size: 1.6rem;
+      margin-bottom: 1.5rem;
+      color: #004aad;
+      text-align: center;
+      position: relative;
+    }
+
+    .contact-form h2::after,
+    .contact-info h2::after {
+      content: '';
+      display: block;
+      width: 50px;
+      height: 3px;
+      background: #004aad;
+      margin: 0.6rem auto 0;
+      border-radius: 2px;
+    }
+
+    /* ===== Form Styling ===== */
+    form label {
+      display: block;
+      margin-bottom: 0.4rem;
+      font-weight: 600;
+      color: #333;
+    }
+
+    form input,
+    form textarea {
+      width: 100%;
+      padding: 0.9rem;
+      margin-bottom: 1.3rem;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 1rem;
+      background: #fff;
+      transition: all 0.3s ease;
+    }
+
+    form input:focus,
+    form textarea:focus {
+      outline: none;
+      border-color: #004aad;
+      box-shadow: 0 0 10px rgba(0, 74, 173, 0.35);
+    }
+
+    /* Button */
+    .btn {
+      background: #004aad;
+      color: #fff;
+      padding: 1rem 2rem;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: block;
+      margin: 0 auto;
+    }
+
+    .btn:hover {
+      background: #005fdd;
+      box-shadow: 0 0 14px rgba(0, 74, 173, 0.55);
+    }
+
+    /* ===== Contact Info ===== */
+    .contact-info p {
+      margin: 1rem 0;
+      font-size: 1.05rem;
+      text-align: center;
+    }
+
+    /* ===== Map Styling ===== */
+    .map {
+      margin-top: 2rem;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.12);
+      opacity: 0;
+      transform: translateY(40px);
+      transition: all 0.9s ease;
+    }
+
+    .map.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .map iframe {
+      width: 100%;
+      height: 300px;
+      border: none;
+      display: block;
+    }
+
+    /* ===== Footer ===== */
+    footer {
+      text-align: center;
+      padding: 1.5rem;
+      background: #222;
+      color: #fff;
+      margin-top: 0;
+    }
+
+    /* ===== Responsive ===== */
+    @media (max-width: 900px) {
+      .content {
+        flex-direction: column;
+      }
+      .contact-form, .contact-info {
+        flex: 1 1 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <nav class="navbar">
+      <div class="logo">Double M Advocates</div>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="services.html">Practice Areas</a></li>
+        <li><a href="our-team.html">Our Team</a></li>
+        <li><a href="contact.html" class="active">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Page Header -->
+  <section class="page-header">
+    <h1>Contact Us</h1>
+    <p>We’d love to hear from you. Get in touch today to discuss your legal needs.</p>
+  </section>
+
+  <!-- Content with background accent -->
+  <div class="content-wrapper">
+    <section class="content">
+      <!-- Contact Form -->
+      <div class="contact-form fade-in">
+        <h2>Send Us a Message</h2>
+        <form id="contactForm" onsubmit="validateForm(event)">
+          <label for="name">Full Name</label>
+          <input type="text" id="name" name="name" required />
+
+          <label for="email">Email Address</label>
+          <input type="email" id="email" name="email" required />
+
+          <label for="message">Message</label>
+          <textarea id="message" name="message" rows="6" required></textarea>
+
+          <button type="submit" class="btn">Submit</button>
+        </form>
+      </div>
+
+      <!-- Contact Information -->
+      <div class="contact-info fade-in">
+        <h2>Contact Details</h2>
+        <p><strong>Email:</strong><br> info@doublemadvocates.africa <br> doublemadvocates@gmail.com</p>
+        <p><strong>Phone:</strong><br> +254701122913 <br> +254718201011</p>
+        <p><strong>Address:</strong><br> Thika Arcade, 5th Floor, Room 601</p>
+        
+        <!-- Map -->
+        <div class="map">
+          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15955.337604731004!2d37.0707!3d-1.0381!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x182f4b4b0cdd7fef%3A0x8c5b9e2e75f4c9d!2sThika%20Arcade!5e0!3m2!1sen!2ske!4v1695655555555" allowfullscreen="" loading="lazy"></iframe>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2025 Double M Advocates. All Rights Reserved.</p>
+  </footer>
+
+  <!-- Animation Script -->
+  <script>
+    const elements = document.querySelectorAll('.fade-in, .map');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.2 });
+
+    elements.forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
