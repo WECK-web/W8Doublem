@@ -90,5 +90,3 @@ This project is licensed under the **MIT License** – feel free to use and modi
 
 ```
 
-👉 Do you want me to also include **screenshots previews** (like homepage/team/contact) inside the README so it looks polished on GitHub?
-```
